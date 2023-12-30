@@ -1,0 +1,6 @@
+torch==2.1.0
+torchvision==0.16.
+torch-summary==1.4.50
+tqdm==4.64.0
+netron==7.3.6
+torchmetrics==1.2.1

@@ -1,2 +1,2 @@
 # RepNets
-Playing with reparameterizable networks
+Playing with reparameterizable networks.
