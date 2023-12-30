@@ -18,15 +18,14 @@ def get(train_batchsize, val_batchsize, num_workers):
     def _get_labelmap(file):
         with open(file, "rb") as fo:
             res = pickle.load(fo, encoding="bytes")
-
-        res = {i: t.decode("utf8") for i, t in enumerate(res[b"fine_label_names"])}
+        res = {i: t.decode("utf8") for i, t in enumerate(res[b"label_names"])}
         return res
 
-    train_dataset = torchvision.datasets.CIFAR100(
+    train_dataset = torchvision.datasets.CIFAR10(
         root="data", download=True, train=True, transform=TRANSFORM
     )
 
-    val_dataset = torchvision.datasets.CIFAR100(
+    val_dataset = torchvision.datasets.CIFAR10(
         root="data", download=True, train=False, transform=TRANSFORM
     )
 
@@ -46,6 +45,6 @@ def get(train_batchsize, val_batchsize, num_workers):
         pin_memory=True,
     )
 
-    labelmap = _get_labelmap(file="./data/cifar-100-python/meta")
+    labelmap = _get_labelmap(file="./data/cifar-10-batches-py/batches.meta")
 
     return train_dataloader, test_dataloader, labelmap
