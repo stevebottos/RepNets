@@ -13,13 +13,13 @@ Structural Reparameterization of convolutional layers is a very useful trick fir
 This type of thing is critical for edge deployments where MAC and such come at a premium. For more reading on efficient model design I recommend **ShuffleNet V2: Practical Guidelines for Efficient CNN Architecture Design** ([arxiv](https://arxiv.org/abs/1807.11164)). The earlier papers mentioned borrow a lot of concepts from this one.
 
 # Getting Started
-`example.py` contains everything you need to get started. **NOTE: In this script we're using the toy model, which is intentially tiny and easy to understand. The accuracy will be pretty bad, but this is to demonstrate first to train/reparameterize and second the difference in speed/accuracy between the training/inference models**. That in mind, here are the numbers after 10 epochs (only 10 because my personal GPU is precious).
+`example.py` contains everything you need to get started. Here I'll use a small RepVGG architecture and train for a little bit. After 30 epochs (only 30 because my personal GPU is precious), we get:
 
 ```
-Final Original Accuracy: 0.497, Mean Inference Time: 0.00057
-Final Reparameterized Accuracy: 0.497, Mean Inference Time: 0.000279
+Final Original Accuracy: 0.839, Mean Inference Time: 0.007736
+Final Reparameterized Accuracy: 0.845, Mean Inference Time: 0.003202
 ```
 
-That's a 50% speed-up at no cost. Nice.
+That's a 50% speed-up as well as a little boost in accuracy. Nice.
 
 

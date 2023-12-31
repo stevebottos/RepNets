@@ -100,10 +100,10 @@ g2_map = {l: 2 for l in optional_groupwise_layers}
 g4_map = {l: 4 for l in optional_groupwise_layers}
 
 
-def create_RepVGG_A0(deploy=False, use_checkpoint=False):
+def create_RepVGG_A0(num_classes, deploy=False, use_checkpoint=False):
     return RepVGG(
         num_blocks=[2, 4, 14, 1],
-        num_classes=1000,
+        num_classes=num_classes,
         width_multiplier=[0.75, 0.75, 0.75, 2.5],
         override_groups_map=None,
         deploy=deploy,
@@ -243,10 +243,10 @@ def create_RepVGG_B3g4(deploy=False, use_checkpoint=False):
     )
 
 
-def create_RepVGG_D2se(deploy=False, use_checkpoint=False):
+def create_RepVGG_D2se(num_classes, deploy=False, use_checkpoint=False):
     return RepVGG(
         num_blocks=[8, 14, 24, 1],
-        num_classes=1000,
+        num_classes=num_classes,
         width_multiplier=[2.5, 2.5, 2.5, 5],
         override_groups_map=None,
         deploy=deploy,

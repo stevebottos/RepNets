@@ -7,8 +7,9 @@ from tqdm import tqdm
 
 from repnets.datasets import cifar10
 from repnets.models import simple_net
+from repnets.models.repvgg import get_RepVGG_func_by_name
 
-N_EPOCHS = 10
+N_EPOCHS = 30
 
 # Get the CIFAR10 dataset, because it's readily available and simple
 train_dataloader, val_dataloader, labelmap = cifar10.get(
@@ -17,8 +18,7 @@ train_dataloader, val_dataloader, labelmap = cifar10.get(
     num_workers=4,
 )
 
-# This model is very tiny and won't score great accuracy in this script,
-model = simple_net.SimpleNet(num_classes=len(labelmap))
+model = get_RepVGG_func_by_name("RepVGG-A0")(num_classes=len(labelmap))
 optimizer = torch.optim.Adam(model.parameters(), lr=1e-4)
 criterion = torch.nn.CrossEntropyLoss()
 metric = Accuracy(task="multiclass", num_classes=len(labelmap))
@@ -64,7 +64,7 @@ for epoch in range(N_EPOCHS):
     metric.reset()
 
     print(
-        f"Epoch {epoch}: Train Accuracy: {train_accuracy}, Val Accuracy: {val_accuracy}"
+        f"Epoch {epoch}: Train Accuracy: {train_accuracy}, Val Accuracy: {val_accuracy}\n"
     )
 
 # Reparameterize the model and do another run through.
