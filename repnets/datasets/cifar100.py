@@ -7,7 +7,23 @@ from repnets import constants
 
 TRANSFORM = torchvision.transforms.Compose(
     [
-        torchvision.transforms.RandAugment(),
+        torchvision.transforms.RandAugment(num_ops=6, magnitude=16),
+        torchvision.transforms.Resize(constants.IMSIZE),
+        torchvision.transforms.ToTensor(),
+        torchvision.transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
+    ]
+)
+
+
+import pickle
+
+import torchvision
+from torch.utils.data import DataLoader
+
+from repnets import constants
+
+TRANSFORM = torchvision.transforms.Compose(
+    [
         torchvision.transforms.Resize(constants.IMSIZE),
         torchvision.transforms.ToTensor(),
         torchvision.transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
@@ -19,6 +35,7 @@ def get(train_batchsize, val_batchsize, num_workers):
     def _get_labelmap(file):
         with open(file, "rb") as fo:
             res = pickle.load(fo, encoding="bytes")
+
         res = {i: t.decode("utf8") for i, t in enumerate(res[b"fine_label_names"])}
         return res
 

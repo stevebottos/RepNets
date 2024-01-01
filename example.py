@@ -21,12 +21,11 @@ train_dataloader, val_dataloader, labelmap = cifar100.get(
 
 # model = get_RepVGG_func_by_name("RepVGG-A0")(num_classes=len(labelmap))
 # model = simple_net.SimpleNet(num_classes=len(labelmap))
-model = shufflenet_v2_x0_5(num_classes=10)
+model = shufflenet_v2_x0_5(num_classes=len(labelmap))
 optimizer = torch.optim.Adam(model.parameters(), lr=1e-4)
 criterion = torch.nn.CrossEntropyLoss()
 metric = Accuracy(task="multiclass", num_classes=len(labelmap))
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-device = "cpu"
 
 model = model.to(device)
 criterion = criterion.to(device)
