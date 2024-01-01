@@ -10,11 +10,19 @@ class SimpleNet(RepModel):
         super().__init__()
         self.stage1 = RepVGGBlock(
             in_channels=3,
-            out_channels=128,
+            out_channels=64,
             kernel_size=3,
+            stride=2,
             padding=1,
         )
         self.stage2 = RepVGGBlock(
+            in_channels=64,
+            out_channels=128,
+            kernel_size=3,
+            stride=2,
+            padding=1,
+        )
+        self.stage3 = RepVGGBlock(
             in_channels=128,
             out_channels=128,
             kernel_size=3,
@@ -26,6 +34,7 @@ class SimpleNet(RepModel):
     def forward(self, x):
         x = self.stage1(x)
         x = self.stage2(x)
+        x = self.stage3(x)
         x = self.avgpool(x)
         x = x.view(x.size(0), -1)
         x = self.linear(x)

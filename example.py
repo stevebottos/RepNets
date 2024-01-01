@@ -5,24 +5,28 @@ import torch
 from torchmetrics.classification import Accuracy
 from tqdm import tqdm
 
-from repnets.datasets import cifar10
+from repnets.datasets import cifar10, cifar100
 from repnets.models import simple_net
 from repnets.models.repvgg import get_RepVGG_func_by_name
+from repnets.models.repshufflenetv2 import shufflenet_v2_x0_5
 
-N_EPOCHS = 30
+N_EPOCHS = 100
 
 # Get the CIFAR10 dataset, because it's readily available and simple
-train_dataloader, val_dataloader, labelmap = cifar10.get(
+train_dataloader, val_dataloader, labelmap = cifar100.get(
     train_batchsize=16,
     val_batchsize=16,
     num_workers=4,
 )
 
-model = get_RepVGG_func_by_name("RepVGG-A0")(num_classes=len(labelmap))
+# model = get_RepVGG_func_by_name("RepVGG-A0")(num_classes=len(labelmap))
+# model = simple_net.SimpleNet(num_classes=len(labelmap))
+model = shufflenet_v2_x0_5(num_classes=10)
 optimizer = torch.optim.Adam(model.parameters(), lr=1e-4)
 criterion = torch.nn.CrossEntropyLoss()
 metric = Accuracy(task="multiclass", num_classes=len(labelmap))
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+device = "cpu"
 
 model = model.to(device)
 criterion = criterion.to(device)
