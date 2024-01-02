@@ -69,7 +69,7 @@ for epoch in range(N_EPOCHS):
     print(
         f"Epoch {epoch}: Train Accuracy: {train_accuracy}, Val Accuracy: {val_accuracy}\n"
     )
-
+    torch.save(model.state_dict(), "shufflenet.pt")
 # Reparameterize the model and do another run through.
 # Model is in eval mode already but for clarity we'll make sure
 model.eval().reparameterize()

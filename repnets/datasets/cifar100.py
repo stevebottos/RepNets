@@ -7,7 +7,7 @@ from repnets import constants
 
 TRANSFORM = torchvision.transforms.Compose(
     [
-        torchvision.transforms.RandAugment(num_ops=6, magnitude=16),
+        torchvision.transforms.RandAugment(num_ops=9, magnitude=16),
         torchvision.transforms.Resize(constants.IMSIZE),
         torchvision.transforms.ToTensor(),
         torchvision.transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),

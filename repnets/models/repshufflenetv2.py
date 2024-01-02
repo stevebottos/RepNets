@@ -131,6 +131,7 @@ class ShuffleNetV2(RepModel):
 
     def _forward_impl(self, x: Tensor) -> Tensor:
         # See note [TorchScript super()]
+        x = torch.cat((x, x, x), dim=1)
         x = self.conv1(x)
         x = self.maxpool(x)
         x = self.stage2(x)
